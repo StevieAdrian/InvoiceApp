@@ -1,0 +1,31 @@
+@model InvoiceApp.Models.MsProduct
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h3>Product Details</h3>
+
+    <div>
+        <label><strong>Product ID:</strong></label>
+        <span>@Model.ProductID</span>
+    </div>
+    <div>
+        <label><strong>Product Name:</strong></label>
+        <span>@Model.ProductName</span>
+    </div>
+    <div>
+        <label><strong>Weight:</strong></label>
+        <span>@Model.Weight</span>
+    </div>
+    <div>
+        <label><strong>Price:</strong></label>
+        <span>@Model.Price</span>
+    </div>
+
+    <br />
+    <a href="@Url.Action("Index", "MsProduct")>Back to List</a>
+</div>

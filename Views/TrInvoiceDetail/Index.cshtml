@@ -1,0 +1,26 @@
+@model IEnumerable<InvoiceApp.Models.TrInvoiceDetail>
+
+<h2>TrInvoiceDetail List</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>InvoiceNo</th>
+            <th>ProductID</th>
+            <th>Weight</th>
+            <th>Qty</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.InvoiceNo</td>
+                <td>@item.ProductID</td>
+                <td>@item.Weight</td>
+                <td>@item.Qty</td>
+                <td>@item.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,20 @@
+@model IEnumerable<InvoiceApp.Models.MsCourier>
+
+<h2>MsCourier List</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>CourierID</th>
+            <th>CourierName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CourierID</td>
+                <td>@item.CourierName</td>
+            </tr>
+        }
+    </tbody>
+</table>

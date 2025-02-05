@@ -1,0 +1,8 @@
+untuk view all & delete:
+http://localhost:5088/TrInvoice
+
+untuk view by id:
+http://localhost:5088/TrInvoice/byid
+
+untuk edit:
+http://localhost:5088/TrInvoice/edit

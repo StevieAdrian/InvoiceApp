@@ -1,0 +1,26 @@
+@model IEnumerable<InvoiceApp.Models.LtCourierFee>
+
+<h2>LTCourierFee List</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>WeightID</th>
+            <th>CourierID</th>
+            <th>StartKg</th>
+            <th>EndKg</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.WeightID</td>
+                <td>@item.CourierID</td>
+                <td>@item.StartKg</td>
+                <td>@item.EndKg</td>
+                <td>@item.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>

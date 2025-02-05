@@ -1,0 +1,20 @@
+@model IEnumerable<InvoiceApp.Models.MsSales>
+
+<h2>MsSales List</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>SalesID</th>
+            <th>SalesName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.SalesID</td>
+                <td>@item.SalesName</td>
+            </tr>
+        }
+    </tbody>
+</table>

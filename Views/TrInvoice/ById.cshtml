@@ -1,0 +1,99 @@
+@model InvoiceApp.Models.TrInvoice
+
+@{
+    var trInvoice = ViewData["TrInvoice"] as InvoiceApp.Models.TrInvoice;
+    var trInvoiceDetails = ViewData["TrInvoiceDetails"] as List<InvoiceApp.Models.TrInvoiceDetail>;
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/trinvoice.css" />
+</head>
+    <h2>Invoice Details</h2>
+
+<div>
+    <div class="container">
+        <div class="header">
+            <label for="invoiceNo">No Invoice</label>
+            <form method="get" action="@Url.Action("ById", "TrInvoice")">
+                <input type="text" id="invoiceNo" name="id" class="header-input" value="@Context.Request.Query["id"]">
+                <button type="submit">View</button>
+            </form>
+        </div>
+
+        @if (Model == null)
+        {
+            <p>Input Invoice Number</p>
+        }
+        else
+        {
+            <div class="title">Invoice Detail</div>
+            <div class="invoice-container">
+                <label for="invoiceDate" class="invoice-label">Invoice Date</label>
+                <input type="text" id="invoiceDate" name="invoiceDate" 
+                value="@Model?.InvoiceDate?.ToString("dd/MM/yyyy")" class="invoice-input" readonly>
+            </div>
+            <div class="invoice-container">
+                <label for="to" class="invoice-label">To</label>
+                <textarea id="to" name="to" readonly>@Model?.InvoiceTo</textarea>
+            </div>
+            <div class="invoice-container">
+                <label for="shipTo" class="invoice-label">Ship To</label>
+                <textarea id="shipTo" name="shipTo" class="half-width" readonly> @Model?.ShipTo></textarea>
+            </div>
+            <div class="invoice-container">
+                <label for="paymentType" class="invoice-label">Payment Type</label>
+                <select id="paymentType" name="paymentType" class="half-width">
+                    <option value="@Model?.PaymentType">@Model?.PaymentType</option>
+                </select>
+            </div>
+            <div class="invoice-container">
+                <label for="salesID" class="invoice-label">Sales Name</label>
+                <select id="salesID" name="salesName">
+                    <option value="@Model?.SalesID">@Model?.SalesID</option>
+                </select>
+            </div>
+            <div class="invoice-container">
+                <label for="courierID" class="invoice-label">Courier</label>
+                <select id="courierID" name="courierID">
+                    <option value="@Model?.CourierID">@Model?.CourierID</option>
+                </select>
+            </div>
+
+
+            <div class="invoice-details">
+                <h3>Invoice Items</h3>
+                <table class="invoice-items">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var detail in trInvoiceDetails)
+                        {
+                            <tr>
+                                <td>@detail.MsProduct?.ProductName</td>
+                                <td>@detail.Qty</td>
+                                <td>@detail.Price</td>
+                                <td>@(detail.Qty * detail.Price)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        }
+    </div>
+
+</div>
+
+
+@if (ViewData["Error"] != null)
+{
+    <div class="error-message">
+        <p>@ViewData["Error"]</p>
+    </div>
+}

@@ -1,0 +1,108 @@
+@model InvoiceApp.Models.TrInvoice
+
+<head>
+    <link rel="stylesheet" href="~/css/trinvoice.css" />
+</head>
+
+<h2>Edit Invoice</h2>
+
+<div class="container">
+    <div class="header">
+        <label for="invoiceNo">No Invoice</label>
+        <form method="get" action="@Url.Action("Edit", "TrInvoice")">
+            <input type="text" id="invoiceNo" name="id" class="header-input" value="@Context.Request.Query["id"]">
+            <button type="submit">View</button>
+        </form>
+    </div>
+
+    @if (Model == null)
+    {
+        <p>Please enter an invoice number to edit details.</p>
+    }
+    else
+    {
+        <form method="post" action="@Url.Action("Edit", "TrInvoice")">
+            <div class="title">Invoice Detail</div>
+            <input type="hidden" id="invoiceNo" name="InvoiceNo" value="@Model?.InvoiceNo" />
+            <div class="invoice-container">
+                <label for="invoiceDate" class="invoice-label">Invoice Date</label>
+                <input type="text" id="invoiceDate" name="InvoiceDate" 
+                value="@Model?.InvoiceDate?.ToString("yyyy-MM-dd")" 
+                class="invoice-input" required>
+            </div>
+            <div class="invoice-container">
+                <label for="to" class="invoice-label">To</label>
+                <textarea id="to" name="InvoiceTo" class="invoice-input">@Model?.InvoiceTo</textarea>
+            </div>
+            <div class="invoice-container">
+                <label for="shipTo" class="invoice-label">Ship To</label>
+                <textarea id="shipTo" name="ShipTo" class="invoice-input">@Model?.ShipTo</textarea>
+            </div>
+            <div class="invoice-container">
+                <label for="paymentType" class="invoice-label">Payment Type</label>
+                <select id="paymentType" name="PaymentType" class="invoice-input" required>
+                    <option value="">-- Select Payment Type --</option>
+                    @if (ViewData["PaymentTypes"] is IEnumerable<InvoiceApp.Models.MsPayment> paymentTypes)
+                    {
+                        foreach (var payment in paymentTypes)
+                        {
+                            <option value="@payment.PaymentID" selected="@(Model?.PaymentType == payment.PaymentID ? "selected" : "")">
+                                @payment.PaymentID
+                            </option>
+                        }
+                    }
+                </select>
+                
+            </div>
+            <div class="invoice-container">
+                <label for="salesID" class="invoice-label">SalesID</label>
+                <select id="salesID" name="SalesID" class="invoice-input" required>
+                    <option value="">-- Select Sales --</option>
+                    @if (ViewData["Sales"] is IEnumerable<InvoiceApp.Models.MsSales> salesList)
+                    {
+                        foreach (var sales in salesList)
+                        {
+                            <option value="@sales.SalesID" selected="@(Model?.SalesID == sales.SalesID ? "selected" : "")">
+                                @sales.SalesID
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="invoice-container">
+                <label for="courierID" class="invoice-label">CourierID</label>
+                <select id="courierID" name="CourierID" class="invoice-input" required>
+                    <option value="">-- Select Courier --</option>
+                    @if (ViewData["Courier"] is IEnumerable<InvoiceApp.Models.MsCourier> courierList)
+                    {
+                        foreach (var courier in courierList)
+                        {
+                            <option value="@courier.CourierID" selected="@(Model?.CourierID == courier.CourierID ? "selected" : "")">
+                                @courier.CourierID
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+
+
+            <div class="button-group">
+                <button type="submit" class="save-button">Save</button>
+            </div>
+        </form>
+    }
+</div>
+
+@if (ViewData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @ViewData["SuccessMessage"]
+    </div>
+}
+
+@if (ViewData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @ViewData["Error"]
+    </div>
+}

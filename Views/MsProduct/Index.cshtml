@@ -1,0 +1,28 @@
+@model IEnumerable<InvoiceApp.Models.MsProduct>
+
+<h2>MsProduct List</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ProductID</th>
+            <th>ProductName</th>
+            <th>Weight</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductID</td>
+                <td>@item.ProductName</td>
+                <td>@item.Weight</td>
+                <td>@item.Price</td>
+                <td>
+                    <a href="@Url.Action("Details", "MsProduct", new { id = item.ProductID })">View Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
